@@ -135,3 +135,6 @@ dmypy.json
 # XLSX
 
 *.xlsx
+
+# MHTML Donwload Result
+mhtml/
