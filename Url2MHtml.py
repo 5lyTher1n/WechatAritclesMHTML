@@ -135,7 +135,9 @@ if __name__ == "__main__":
         cur_tit = replace_name(eve[1])
         # tit = eve[1]
         cur_date = eve[2]
-        if cur_date < last_date:
+        print(cur_date, last_date)
+        if get_start_timestamp(cur_date) < get_start_timestamp(last_date):
+            print("break")
             break
         if cur_url not in last_record_url or cur_tit not in last_record_title:
             print(" === ", cur_url, cur_tit, cur_date)
@@ -143,6 +145,7 @@ if __name__ == "__main__":
 
             filename = "[{}]-{}-{}".format(gzh_name, cur_date, cur_tit)
             filename = "./mhtml/{}/".format(gzh_name) + filename + ".mhtml"
+            print(filename)
             if os.path.exists(filename):
                 continue
             getMHTML(cur_url, filename)
