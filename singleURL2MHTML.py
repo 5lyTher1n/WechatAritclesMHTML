@@ -1,3 +1,5 @@
+# 这是一个测试文件，或者用来下载某一个页面的mhtml
+
 from Url2MHtml import getMHTML
 import os
 

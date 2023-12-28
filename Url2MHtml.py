@@ -117,9 +117,8 @@ def processLst(lst):
     return item_lst
 
 
-if __name__ == "__main__":
-
-    # 公众号名称，用来建立文件夹、保存更新URL xlsx等。
+def download_mhtml_by_mongodb():
+      # 公众号名称，用来建立文件夹、保存更新URL xlsx等。
     gzh_name = "迪哥讲事"
     last_date, last_record_url, last_record_title = get_last_record(gzh_name)
 
@@ -149,6 +148,42 @@ if __name__ == "__main__":
             if os.path.exists(filename):
                 continue
             getMHTML(cur_url, filename)
+            time.sleep(random.randint(1,3))
+
+
+
+if __name__ == "__main__":
+
+    gzh_name = "guimaizi"
+    xlsx_path = gzh_name + ".xlsx"
+    print(xlsx_path)
+    if os.path.exists(xlsx_path):
+        
+        gzh_info = pd.read_excel(xlsx_path)
+        url_lst = gzh_info["url"]
+        tit_lst = gzh_info["title"]
+        date_list = gzh_info["date"]
+        info_list = []
+        idx = 0
+        for idx, url in enumerate(url_lst):
+            info_list.append([url, tit_lst[idx], date_list[idx]])
+
+        print(info_list)
+        dir_path = f"./mhtml/{gzh_name}"
+        if not os.path.exists(dir_path):
+            os.makedirs(dir_path)
+        for eve in info_list:
+            cur_url, cur_tit, cur_date = eve          
+            cur_tit = replace_name(cur_tit)
+            
+
+            filename = "[{}]-{}-{}".format(gzh_name, cur_date, cur_tit)
+       
+            file_path = dir_path + '/' + filename + ".mhtml"
+            print(file_path)
+            if os.path.exists(file_path):
+                continue
+            getMHTML(cur_url, file_path)
             time.sleep(random.randint(1,3))
 
 
